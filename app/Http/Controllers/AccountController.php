@@ -22,11 +22,11 @@ class AccountController extends Controller
     }
 
     /**
-     *
+     * [FRONT-END]: Update page for user profiles.
      */
     public function index()
     {
-
+        return view('auth.profile');
     }
 
     /**
