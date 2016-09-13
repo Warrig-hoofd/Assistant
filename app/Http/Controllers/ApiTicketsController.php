@@ -181,7 +181,7 @@ class ApiTicketsController extends Controller
      * @param  int $tid The ticket id in the database.
      * @return mixed
      */
-    public function delete($tid)
+    public function destroy($tid)
     {
         if (Tickets::destroy($tid)) {
             // TODO: create notification.

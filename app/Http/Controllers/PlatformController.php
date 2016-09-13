@@ -19,4 +19,9 @@ class PlatformController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function insert()
+    {
+        
+    }
 }

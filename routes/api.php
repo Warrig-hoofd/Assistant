@@ -14,4 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::get('tickets', 'ApiTicketsController@index');
+Route::delete('tickets/{tid}', 'ApiTicketsController@destroy');
 Route::post('tickets', 'ApiTicketsController@store');

@@ -74,6 +74,9 @@ class ApiTicketsTest extends TestCase
     }
 
     /**
+     * POST:
+     * ROUTE:
+     *
      * @test
      * @group all
      * @group api
@@ -111,7 +114,7 @@ class ApiTicketsTest extends TestCase
      */
     public function TestDeleteWithSuccess()
     {
-
+        $user = factory(App\User::class, 2)->create();gi
     }
 
     /**
