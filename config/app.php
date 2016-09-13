@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         EllipseSynergie\ApiResponse\Laravel\ResponseServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         //
 

@@ -54,12 +54,4 @@ class AccountController extends Controller
     {
 
     }
-
-    /**
-     * [FRONT-END]:
-     */
-    public function updateApi()
-    {
-
-    }
 }

@@ -39,6 +39,8 @@ class ApiTicketsController extends Controller
      */
     public function __construct(Response $response, TicketTransformer $transformer)
     {
+        $this->middleware('auth:api');
+
         $this->response    = $response;
         $this->transformer = $transformer;
 
@@ -46,14 +48,19 @@ class ApiTicketsController extends Controller
         $this->headers['Content-Type'] = 'application/json';
 
         // Validation rules.
-        $this->validation[''] = '';
+        $this->validation['title']         = 'required';
+        $this->validation['category_id']   = 'required';
+        $this->validation['platform']      = 'required';
+        $this->validation['description']   = 'required';
+        $this->validation['creator_email'] = 'required';
+        $this->validation['creator_name']  = 'required';
 
     }
 
     /**
      * [API]: Get all the tickets in the database.
      *
-     * @url:platform  GET|HEAD:
+     * @url:platform  GET|HEAD: /api/tickets
      * @see:phpunit   ApiTicketsTest::TicketsIndexWithData()
      * @see:phpunit   ApiTicketsTest::TicketsIndexWithOutData()
      *
@@ -83,7 +90,7 @@ class ApiTicketsController extends Controller
      * [API]: get a specific ticket in the database.
      *
      * @url:platform+.
-     * r
+     *
      * @see:phpunit   ApiTicketsTest::TicketsShowFindId()
      * @see:phpunit   ApiTicketsTest::TicketsShowCannotFindId()
      *
@@ -107,7 +114,7 @@ class ApiTicketsController extends Controller
     /**
      * [API]: Store a ticket in the database.
      *
-     * @url:platform
+     * @url:platform  POST: /api/tickets
      * @see:phpunit   ApiTicketsTest::TicketsInsertWithoutErrors()
      * @see:phpunit   ApiTicketsTest::TicketsInsertWithErrors()
      *
@@ -116,19 +123,19 @@ class ApiTicketsController extends Controller
      */
     public function store(Request $input)
     {
-        $validation = Validator::make($input->all(), $this->validation);
+        $validation = Validator::make($input->except('api_token'), $this->validation);
 
         if ($validation->fails()) {
             $data['status_code'] = $this->response->getStatusCode();
             $data['message']     = 'Data validation failed';
-            $data['errors']      = $validation;
+            $data['errors']      = $validation->errors();
 
-            return $this->response->errorUnwillingToProcess($data, $this->headers);
+            return $this->response->errorWrongArgs($data, $this->headers);
         }
 
         $data['status_code'] = $this->response->getStatusCode();
         $data['message']     = 'Your feedback has been created';
-        $data['data']        = $input->all();
+        $data['data']        = $input->except('api_token');
 
         // TODO: create database insert.
         // TODO: create notification.
@@ -149,7 +156,19 @@ class ApiTicketsController extends Controller
      */
     public function update(Request $input, $tid)
     {
-        //
+        $validation = Validator::make($input->all(), $this->validation);
+
+        if ($validation->fails()) {
+            $data['status_code'] = $this->response->getStatusCode();
+            $data['message']     = 'Data validation failed';
+            $data['errors']      = $validation;
+        }
+
+        $data['status_code'] = $this->response->getStatusCode();
+        $data['message']     = 'The feedback item has been updated';
+        $data['data']        = $input->all();
+
+        return $this->response->withArray($data, $this->headers);
     }
 
     /**

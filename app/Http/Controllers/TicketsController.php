@@ -8,5 +8,8 @@ use App\Http\Requests;
 
 class TicketsController extends Controller
 {
-    //
+    public function __construct()
+    {
+
+    }
 }
