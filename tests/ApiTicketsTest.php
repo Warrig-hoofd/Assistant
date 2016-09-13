@@ -114,7 +114,7 @@ class ApiTicketsTest extends TestCase
      */
     public function TestDeleteWithSuccess()
     {
-        $user = factory(App\User::class, 2)->create();gi
+        $user = factory(App\User::class, 2)->create();
     }
 
     /**

@@ -24,11 +24,16 @@ class TicketsController extends Controller
     /**
      * [FRONT-END]: Ticket overview.
      *
+     * @url:platform  GET|HEAD: /tickets
+     * @see:phpunit   TicketsTest::IndexOverview()
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('');
+        // TODO: Complete view.
+        $data['tickets'] = Tickets::all();
+        return view('tickets.index', $data);
     }
 
     /**

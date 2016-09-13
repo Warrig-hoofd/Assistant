@@ -25,4 +25,4 @@ Route::get('/users/destroy/{id}', 'UserManagementController@destroy')->name('use
 Route::get('/users/token', 'userManagementController@generateToken')->name('users.token');
 
 // Ticket management
-Route::get('/tickets', 'ApiTicketsController@Index');
+Route::get('/tickets', 'ApiTicketsController@Index')->name('tickets.index');
